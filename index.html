@@ -29,12 +29,18 @@
             font-size: 2rem;
             margin-bottom: 20px;
         }
+
+        button {
+            display: block;
+            margin: 10px auto;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Simple Invaders Game</h1>
-        <canvas id="gameCanvas" width="480" height="320"></canvas>
+        <canvas id="gameCanvas" width="480" height="320" tabindex="0"></canvas>
+        <button id="startButton">Start Game</button>
     </div>
     <script src="game.js"></script>
 </body>
