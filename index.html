@@ -45,7 +45,7 @@
 <body>
     <div class="container">
         <h1>Simple Invaders Game</h1>
-        <canvas id="gameCanvas" width="480" height="320"></canvas>
+        <canvas id="gameCanvas" width="480" height="320" tabindex="0"></canvas>
         <button id="startButton">Start Game</button>
     </div>
     <script>
@@ -127,6 +127,13 @@ function gameLoop() {
 }
 
 gameLoop();
+    </script>
+        <script>
+        const startButton = document.getElementById("startButton");
+        startButton.addEventListener("click", () => {
+            startButton.style.display = "none";
+            gameLoop();
+        });
     </script>
 </body>
 </html>
