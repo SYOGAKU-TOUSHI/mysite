@@ -1,9 +1,32 @@
 body {
-  font-weight: bold;
-  color: red;
+	font-family: Arial, sans-serif;
+	background-color: #eee;
 }
-
+#game-container {
+	max-width: 600px;
+	margin: 0 auto;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
 h1 {
-  font-size: 2em;
-  text-align: center;
+	text-align: center;
+}
+#player-stats, #enemy-stats {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 50px;
+}
+#attack-btn {
+	display: block;
+	margin: 20px auto;
+	padding: 10px 20px;
+	font-size: 24px;
+	background-color: #428bca;
+	color: #fff;
+	border-radius: 5px;
+	border: none;
+	box-shadow: 0 0 5px rgba(0,0,0,0.2);
+	cursor: pointer;
 }
