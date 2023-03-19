@@ -5,15 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Invaders Game</title>
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+            font-family: "Arial", sans-serif;
+            color: #fff;
+        }
+
         canvas {
             display: block;
             margin: 0 auto;
             background-color: #000;
+            border: 2px solid #fff;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas" width="480" height="320"></canvas>
+    <div class="container">
+        <h1>Simple Invaders Game</h1>
+        <canvas id="gameCanvas" width="480" height="320"></canvas>
+    </div>
     <script src="game.js"></script>
 </body>
 </html>
