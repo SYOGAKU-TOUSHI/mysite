@@ -2,6 +2,7 @@ body {
 	font-family: Arial, sans-serif;
 	background-color: #eee;
 }
+
 #game-container {
 	max-width: 600px;
 	margin: 0 auto;
@@ -10,14 +11,17 @@ body {
 	border-radius: 5px;
 	box-shadow: 0 0 10px rgba(0,0,0,0.2);
 }
+
 h1 {
 	text-align: center;
 }
+
 #player-stats, #enemy-stats {
 	display: inline-block;
 	vertical-align: top;
 	margin-right: 50px;
 }
+
 #attack-btn {
 	display: block;
 	margin: 20px auto;
