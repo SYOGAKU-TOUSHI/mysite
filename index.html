@@ -1,32 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Dragon GM GN HI</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Invaders Game</title>
+    <style>
+        canvas {
+            display: block;
+            margin: 0 auto;
+            background-color: #000;
+        }
+    </style>
 </head>
 <body>
-	<div id="game-container">
-		<h1>Dragon GM GN HI</h1>
-		<img src="https://raw.githubusercontent.com/SYOGAKU-TOUSHI/mysite/master/map.png" alt="Map" id="map">
-		<img src="https://raw.githubusercontent.com/SYOGAKU-TOUSHI/mysite/master/player.png" alt="Player" id="player">
-		<div id="player-stats">
-			<h2>Stats</h2>
-			<p>HP: <span id="player-hp">100</span></p>
-			<p>Attack: <span id="player-attack">10</span></p>
-			<p>Defense: <span id="player-defense">5</span></p>
-		</div>
-		<div id="enemy-stats">
-			<h2>Enemy Stats</h2>
-			<p>HP: <span id="enemy-hp">50</span></p>
-			<p>Attack: <span id="enemy-attack">8</span></p>
-			<p>Defense: <span id="enemy-defense">3</span></p>
-		</div>
-		<button id="attack-btn">Attack!</button>
-	</div>
-	<script src="position.js"></script>
-	<script src="player.js"></script>
-	<script src="map.js"></script>
-	<script src="keyboard.js"></script>
+    <canvas id="gameCanvas" width="480" height="320"></canvas>
+    <script src="game.js"></script>
 </body>
 </html>
