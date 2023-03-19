@@ -1,14 +1,26 @@
+<!DOCTYPE html>
 <html>
 <head>
-  <title>shogaku IN</title>
+	<title>ドラクエ風RPG</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <h1>Welcome to My Website</h1>
-  <p>This is the home page of my website.</p>
-  <img src="https://firebasestorage.googleapis.com/v0/b/hideaki-97c59.appspot.com/o/users%2F9MgGVaEAaFRpi5tkLj5J3FNIHPy2%2Ficon.jpeg?alt=media&date=1670671314271">
-  <p>To learn more about me, please visit the <a href="https://shogaku.icp.page/">shogaku.icp</a> page.</p>
-  <p>To learn more about me, please visit the <a href="https://syogaku.ic.dance//">syogaku.ic</a> page.</p>
+	<div id="game-container">
+		<h1>ドラクエ風RPG</h1>
+		<div id="player-stats">
+			<h2>ステータス</h2>
+			<p>HP: <span id="player-hp">100</span></p>
+			<p>攻撃力: <span id="player-attack">10</span></p>
+			<p>防御力: <span id="player-defense">5</span></p>
+		</div>
+		<div id="enemy-stats">
+			<h2>敵のステータス</h2>
+			<p>HP: <span id="enemy-hp">50</span></p>
+			<p>攻撃力: <span id="enemy-attack">8</span></p>
+			<p>防御力: <span id="enemy-defense">3</span></p>
+		</div>
+		<button id="attack-btn">攻撃！</button>
+	</div>
+	<script src="script.js"></script>
 </body>
 </html>
-
-<link rel="stylesheet" href="style.css">
