@@ -121,10 +121,14 @@ function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   handleInput();
   drawPlayer();
+  drawEnemies(); // この行を追加
   updateBullets();
   drawBullets();
   requestAnimationFrame(gameLoop);
 }
+        
+startButton.addEventListener("click", () => {
+createEnemies();
 
 gameLoop();
     </script>
