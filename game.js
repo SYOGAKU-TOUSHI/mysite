@@ -16,6 +16,8 @@ const bullets = [];
 
 let keyState = {};
 
+let gameStarted = false;
+
 document.addEventListener("keydown", (event) => {
   keyState[event.key] = true;
 });
@@ -55,26 +57,35 @@ function drawBullets() {
   }
 }
 
-function handleInput() {
+function gameLoop() {
+  if (!gameStarted) {
+    return
+  }
+  
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawPlayer();
+  updateBullets();
+  drawBullets();
+
   if (keyState["ArrowLeft"]) {
     playerX = Math.max(playerX - playerSpeed, 0);
   }
   if (keyState["ArrowRight"]) {
     playerX = Math.min(playerX + playerSpeed, canvas.width - playerWidth);
   }
-  if (keyState[" "]) {
+  if (keyState[" "] && !keyState["fired"]) {
     bullets.push({ x: playerX + playerWidth / 2 - bulletWidth / 2, y: playerY });
-    keyState[" "] = false;
+    keyState["fired"] = true;
   }
-}
+  if (!keyState[" "]) {
+    keyState["fired"] = false;
+  }
 
-function gameLoop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  handleInput();
-  drawPlayer();
-  updateBullets();
-  drawBullets();
   requestAnimationFrame(gameLoop);
 }
 
-gameLoop();
+const startButton = document.getElementById("startButton");
+startButton.addEventListener("click", () => {
+  gameStarted = true;
+  gameLoop();
+});
