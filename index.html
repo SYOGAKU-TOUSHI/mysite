@@ -5,41 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Invaders Game</title>
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #222;
-            font-family: "Arial", sans-serif;
-            color: #fff;
-        }
-
-        canvas {
-            display: block;
-            margin: 0 auto;
-            background-color: #000;
-            border: 2px solid #fff;
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        #startButton {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            font-size: 1.2rem;
-            background-color: #fff;
-            color: #000;
-            cursor: pointer;
-            border: none;
-        }
+        /* 既存のスタイル */
     </style>
 </head>
 <body>
@@ -49,95 +15,120 @@
         <button id="startButton">Start Game</button>
     </div>
     <script>
-      // ここに先ほどのJavaScriptコードを貼り付けるか、別ファイルにして読み込む
         const canvas = document.getElementById("gameCanvas");
-const ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext("2d");
 
-const playerWidth = 20;
-const playerHeight = 20;
-const playerSpeed = 5;
-let playerX = (canvas.width - playerWidth) / 2;
-let playerY = canvas.height - playerHeight - 10;
+        const playerWidth = 20;
+        const playerHeight = 20;
+        const playerSpeed = 5;
+        let playerX = (canvas.width - playerWidth) / 2;
+        let playerY = canvas.height - playerHeight - 10;
 
-const bulletWidth = 5;
-const bulletHeight = 10;
-const bullets = [];
+        const bulletWidth = 5;
+        const bulletHeight = 10;
+        const bullets = [];
 
-let keyState = {};
+        let keyState = {};
 
-document.addEventListener("keydown", (event) => {
-  keyState[event.key] = true;
-});
-
-document.addEventListener("keyup", (event) => {
-  keyState[event.key] = false;
-});
-
-function drawPlayer() {
-  ctx.beginPath();
-  ctx.rect(playerX, playerY, playerWidth, playerHeight);
-  ctx.fillStyle = "#00FF00";
-  ctx.fill();
-  ctx.closePath();
-}
-
-function drawBullet(x, y) {
-  ctx.beginPath();
-  ctx.rect(x, y, bulletWidth, bulletHeight);
-  ctx.fillStyle = "#FFFFFF";
-  ctx.fill();
-  ctx.closePath();
-}
-
-function updateBullets() {
-  for (let i = 0; i < bullets.length; i++) {
-    bullets[i].y -= 5;
-    if (bullets[i].y < 0) {
-      bullets.splice(i, 1);
-    }
-  }
-}
-
-function drawBullets() {
-  for (const bullet of bullets) {
-    drawBullet(bullet.x, bullet.y);
-  }
-}
-
-function handleInput() {
-  if (keyState["ArrowLeft"]) {
-    playerX = Math.max(playerX - playerSpeed, 0);
-  }
-  if (keyState["ArrowRight"]) {
-    playerX = Math.min(playerX + playerSpeed, canvas.width - playerWidth);
-  }
-  if (keyState[" "]) {
-    bullets.push({ x: playerX + playerWidth / 2 - bulletWidth / 2, y: playerY });
-    keyState[" "] = false;
-  }
-}
-
-function gameLoop() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  handleInput();
-  drawPlayer();
-  drawEnemies(); // この行を追加
-  updateBullets();
-  drawBullets();
-  requestAnimationFrame(gameLoop);
-}
-        
-startButton.addEventListener("click", () => {
-createEnemies();
-
-gameLoop();
-    </script>
-        <script>
-        const startButton = document.getElementById("startButton");
-        startButton.addEventListener("click", () => {
-            startButton.style.display = "none";
-            gameLoop();
+        document.addEventListener("keydown", (event) => {
+          keyState[event.key] = true;
         });
-    </script>
+
+        document.addEventListener("keyup", (event) => {
+          keyState[event.key] = false;
+        });
+
+        function drawPlayer() {
+          ctx.beginPath();
+          ctx.rect(playerX, playerY, playerWidth, playerHeight);
+          ctx.fillStyle = "#00FF00";
+          ctx.fill();
+          ctx.closePath();
+        }
+
+        function drawBullet(x, y) {
+          ctx.beginPath();
+          ctx.rect(x, y, bulletWidth, bulletHeight);
+          ctx.fillStyle = "#FFFFFF";
+          ctx.fill();
+          ctx.closePath();
+        }
+
+        function updateBullets() {
+          for (let i = 0; i < bullets.length; i++) {
+            bullets[i].y -= 5;
+            if (bullets[i].y < 0) {
+              bullets.splice(i, 1);
+            }
+          }
+        }
+
+        function drawBullets() {
+          for (const bullet of bullets) {
+            drawBullet(bullet.x, bullet.y);
+          }
+        }
+
+        const enemyWidth = 20;
+        const enemyHeight = 20;
+        const enemies = [];
+
+        function createEnemies() {
+          for (let i = 0; i < 5; i++) {
+            for (let j = 0; j < 3; j++) {
+              const x = i * (enemyWidth + 20) + 60;
+              const y = j * (enemyHeight + 20) + 40;
+              enemies.push({ x: x, y: y });
+            }
+          }
+        }
+
+        function drawEnemy(x, y) {
+          ctx.beginPath();
+          ctx.rect(x, y, enemyWidth, enemyHeight);
+          ctx.fillStyle = "#FF0000";
+          ctx.fill();
+          ctx.closePath();
+        }
+
+        function drawEnemies() {
+          for (const enemy of enemies) {
+            drawEnemy(enemy.x, enemy.y);
+          }
+        }
+
+        function handleInput() {
+          if (keyState["ArrowLeft"]) {
+            playerX = Math.max(playerX - playerSpeed, 0);
+          }
+          if (keyState["ArrowRight"]) {
+            playerX = Math.min(playerX + playerSpeed, canvas.width - playerWidth);
+          }
+          if (keyState[" "] && !keyState["fired"]) {
+            bullets.push({ x: playerX + playerWidth / 2 - bulletWidth / 2 / 2, y: playerY });
+              keyState["fired"] = true;
+          } else if (!keyState[" "]) {
+              keyState["fired"] = false;
+          }
+        }
+        
+    function gameLoop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      handleInput();
+      drawPlayer();
+      drawEnemies();
+      updateBullets();
+      drawBullets();
+      requestAnimationFrame(gameLoop);
+    }
+
+    const startButton = document.getElementById("startButton");
+    startButton.addEventListener("click", () => {
+      startButton.style.display = "none";
+      createEnemies();
+      gameLoop();
+    });
+</script>
+
 </body>
 </html>
