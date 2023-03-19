@@ -11,6 +11,16 @@ const bulletWidth = 5;
 const bulletHeight = 10;
 const bullets = [];
 
+let keyState = {};
+
+document.addEventListener("keydown", (event) => {
+  keyState[event.key] = true;
+});
+
+document.addEventListener("keyup", (event) => {
+  keyState[event.key] = false;
+});
+
 function drawPlayer() {
   ctx.beginPath();
   ctx.rect(playerX, playerY, playerWidth, playerHeight);
@@ -42,26 +52,26 @@ function drawBullets() {
   }
 }
 
+function handleInput() {
+  if (keyState["ArrowLeft"]) {
+    playerX = Math.max(playerX - playerSpeed, 0);
+  }
+  if (keyState["ArrowRight"]) {
+    playerX = Math.min(playerX + playerSpeed, canvas.width - playerWidth);
+  }
+  if (keyState[" "]) {
+    bullets.push({ x: playerX + playerWidth / 2 - bulletWidth / 2, y: playerY });
+    keyState[" "] = false;
+  }
+}
+
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  handleInput();
   drawPlayer();
   updateBullets();
   drawBullets();
   requestAnimationFrame(gameLoop);
 }
-
-document.addEventListener("keydown", (event) => {
-  switch (event.key) {
-    case "ArrowLeft":
-      playerX = Math.max(playerX - playerSpeed, 0);
-      break;
-    case "ArrowRight":
-      playerX = Math.min(playerX + playerSpeed, canvas.width - playerWidth);
-      break;
-    case " ":
-      bullets.push({ x: playerX + playerWidth / 2 - bulletWidth / 2, y: playerY });
-      break;
-  }
-});
 
 gameLoop();
