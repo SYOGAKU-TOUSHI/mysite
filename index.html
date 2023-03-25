@@ -1,134 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Invaders Game</title>
-    <style>
-        /* 既存のスタイル */
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Simple Invaders Game</h1>
-        <canvas id="gameCanvas" width="480" height="320" tabindex="0"></canvas>
-        <button id="startButton">Start Game</button>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <title>OheyaQuest</title>
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- /* Game Library */ -->
+    <script src="js-game/GameCanvas.js"></script>
+    <script src="js-game/GameView.js"></script>
+    <script src="js-game/GameAnim.js"></script>
+    <script src="js-game/GameUtil.js"></script>
+    <script src="js-game/GameImage.js"></script>
+    <script src="js-game/GameSound.js"></script>
+
+    <!-- /* Data Manipulate */ -->
+    <script src="js-data/GameData.js"></script>
+    <script src="js-data/UserData.js"></script>
+    <script src="js-data/UtilUrlData.js"></script>
+    <script src="js-data/UtilLevel.js"></script>
+    <script src="js-data/UtilMap.js"></script>
+    <script src="js-data/UtilMisc.js"></script>
+
+    <!-- /* Ui Parts */ -->
+    <script src="js-ui/UiText.js"></script>
+    <script src="js-ui/UiWin.js"></script>
+
+    <script src="js-ui/UiStatus.js"></script>
+    <script src="js-ui/UiItem.js"></script>
+
+    <script src="js-ui/UiChip.js"></script>
+    <script src="js-ui/UiMap.js"></script>
+    <script src="js-ui/UiMapFull.js"></script>
+
+    <script src="js-ui/UiBattleBase.js"></script>
+    <script src="js-ui/UiBattleEffect.js"></script>
+    <script src="js-ui/UiBattleNumEffect.js"></script>
+
+    <!-- /* Scene Management */ -->
+    <script src="js-scene/SceneTitle.js"></script>
+    <script src="js-scene/SceneMap.js"></script>
+    <script src="js-scene/SceneEvent.js"></script>
+    <script src="js-scene/SceneBattle.js"></script>
+
+    <script src="js-scene/UtilMapDirection.js"></script>
+    <script src="js-scene/UtilMapMove.js"></script>
+    <script src="js-scene/UtilMapEvent.js"></script>
+
+    <script src="js-scene/UtilBattleData.init.js"></script>
+    <script src="js-scene/UtilBattleData.calc.js"></script>
+    <script src="js-scene/UtilBattleProcess.js"></script>
+    <script src="js-scene/UtilBattleMenu.js"></script>
+
+    <!-- /* Start Main */ -->
+    <script src="main.js"></script>
+  </head>
+  <body oncontextmenu="return false;">
+    <div id="appWrapper">
+      <div id="app" class="app"></div>
     </div>
-    <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-
-        const playerWidth = 20;
-        const playerHeight = 20;
-        const playerSpeed = 5;
-        let playerX = (canvas.width - playerWidth) / 2;
-        let playerY = canvas.height - playerHeight - 10;
-
-        const bulletWidth = 5;
-        const bulletHeight = 10;
-        const bullets = [];
-
-        let keyState = {};
-
-        document.addEventListener("keydown", (event) => {
-          keyState[event.key] = true;
-        });
-
-        document.addEventListener("keyup", (event) => {
-          keyState[event.key] = false;
-        });
-
-        function drawPlayer() {
-          ctx.beginPath();
-          ctx.rect(playerX, playerY, playerWidth, playerHeight);
-          ctx.fillStyle = "#00FF00";
-          ctx.fill();
-          ctx.closePath();
-        }
-
-        function drawBullet(x, y) {
-          ctx.beginPath();
-          ctx.rect(x, y, bulletWidth, bulletHeight);
-          ctx.fillStyle = "#FFFFFF";
-          ctx.fill();
-          ctx.closePath();
-        }
-
-        function updateBullets() {
-          for (let i = 0; i < bullets.length; i++) {
-            bullets[i].y -= 5;
-            if (bullets[i].y < 0) {
-              bullets.splice(i, 1);
-            }
-          }
-        }
-
-        function drawBullets() {
-          for (const bullet of bullets) {
-            drawBullet(bullet.x, bullet.y);
-          }
-        }
-
-        const enemyWidth = 20;
-        const enemyHeight = 20;
-        const enemies = [];
-
-        function createEnemies() {
-          for (let i = 0; i < 5; i++) {
-            for (let j = 0; j < 3; j++) {
-              const x = i * (enemyWidth + 20) + 60;
-              const y = j * (enemyHeight + 20) + 40;
-              enemies.push({ x: x, y: y });
-            }
-          }
-        }
-
-        function drawEnemy(x, y) {
-          ctx.beginPath();
-          ctx.rect(x, y, enemyWidth, enemyHeight);
-          ctx.fillStyle = "#FF0000";
-          ctx.fill();
-          ctx.closePath();
-        }
-
-        function drawEnemies() {
-          for (const enemy of enemies) {
-            drawEnemy(enemy.x, enemy.y);
-          }
-        }
-
-        function handleInput() {
-          if (keyState["ArrowLeft"]) {
-            playerX = Math.max(playerX - playerSpeed, 0);
-          }
-          if (keyState["ArrowRight"]) {
-            playerX = Math.min(playerX + playerSpeed, canvas.width - playerWidth);
-          }
-          if (keyState[" "] && !keyState["fired"]) {
-            bullets.push({ x: playerX + playerWidth / 2 - bulletWidth / 2 / 2, y: playerY });
-              keyState["fired"] = true;
-          } else if (!keyState[" "]) {
-              keyState["fired"] = false;
-          }
-        }
-        
-    function gameLoop() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      handleInput();
-      drawPlayer();
-      drawEnemies();
-      updateBullets();
-      drawBullets();
-      requestAnimationFrame(gameLoop);
-    }
-
-    const startButton = document.getElementById("startButton");
-    startButton.addEventListener("click", () => {
-      startButton.style.display = "none";
-      createEnemies();
-      gameLoop();
-    });
-</script>
-
-</body>
+  </body>
 </html>
