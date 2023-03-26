@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <!--
+      HTML内のコメントは「小なり!--」と「--大なり」の間に書く。
+      複数行にわたってもよい。
+    -->
+
+    <!--
+      外部「Stylesheet」は「link」タグの「href」を使って読み込む
+      ファイル パスの指定は、相対パスでも絶対パスでもよい。
+      別ドメインのURLを指定してもよい。
+    -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- 「JavaScript」は、HTML内に「script」タグを使い、直接書ける。 -->
+    <script>
+		// 「スラッシュ」2つの右側はコメント
+		// console.logを使い、コンソールに情報を出力可能
+		console.log('出力');
+
+		/*
+			「スラッシュ」「アスタリスク」で囲えば
+			複数行のコメントが可能
+		*/
+
+		// console.logには「,」区切りで複数の情報を出力可能
+		console.log('文字列', 1.234, [1, 2, 3], {name: 'dog'});
+
+		// 文の区切りの「;」は、付けても付けなくても構わない
+		// どちらかに統一して記述した方がよい
+    </script>
+
+    <!--
+      外部「JavaScript」は、「script」タグの「src」を使って読み込む。
+      ファイル パスの指定は、相対パスでも絶対パスでもよい。
+      別ドメインのURLを指定してもよい。
+    -->
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <p class="message">「index.html」「main.js」をエディターで開いて確認してください。</p>
+    <p class="message">コンソールに情報を出力します。コンソールを開いてください。</p>
+
+    <h2>コンソールの開き方</h2>
+    <ol>
+      <li>Webページを右クリックして「検証」を選ぶ。
+          開発者ツール（DevTools）が表示される。</li>
+      <li>開発者ツールの「Console」タブを選ぶ。</li>
+    </ol>
+
+    <h2>資料</h2>
+    <ul>
+      <li><a href="https://developer.chrome.com/docs/devtools/">Chrome DevTools - Chrome Developers</a></li>
+    </ul>
+  </body>
+</html>
