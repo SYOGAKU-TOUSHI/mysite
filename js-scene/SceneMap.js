@@ -18,6 +18,10 @@ class SceneMap {
 		GameSound.playBGM('bgmMap');			// マップBGM再生
 		UtilLevel.calc(gameData, userData);		// 計算
 		UtilUrlData.save(userData);				// 保存
+		
+		// キーボードイベントのリスナーを追加
+		document.addEventListener('keydown', this.keyDown.bind(this));
+		document.addEventListener('keyup', this.keyUp.bind(this));
 	}
 
 	//------------------------------------------------------------
@@ -32,6 +36,40 @@ class SceneMap {
 
 		// 方向の判定
 		options.direction = UtilMapDirection.check(x, y, gameData.w, gameData.h);
+		
+		 // キーボードイベントの処理
+  static keyDown(event) {
+    const options = this.options;
+
+    switch (event.key) {
+      case 'ArrowUp':
+        options.direction = 'up';
+        break;
+      case 'ArrowDown':
+        options.direction = 'down';
+        break;
+      case 'ArrowLeft':
+        options.direction = 'left';
+        break;
+      case 'ArrowRight':
+        options.direction = 'right';
+        break;
+    }
+  }
+
+  static keyUp(event) {
+    const options = this.options;
+
+    switch (event.key) {
+      case 'ArrowUp':
+      case 'ArrowDown':
+      case 'ArrowLeft':
+      case 'ArrowRight':
+        options.direction = null;
+        break;
+		
+		
+		
 	}
 
 	//------------------------------------------------------------
